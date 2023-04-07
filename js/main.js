@@ -1,96 +1,98 @@
-const carrito = []
-
 const productos = [
-    { imagen: '💐', codigo: 1, tipo: 'producto 1', precio: 1500 },
-    { imagen: '🌱', codigo: 2, tipo: 'producto 2', precio: 3500 },
-    { imagen: '🌸', codigo: 3, tipo: 'producto 3', precio: 2700 },
-    { imagen: '🌵', codigo: 4, tipo: 'producto 4', precio: 1800 },
-    { imagen: '🌺', codigo: 5, tipo: 'producto 5', precio: 2200 },
-    { imagen: '🍃', codigo: 6, tipo: 'producto 6', precio: 2900 },
-    { imagen: '🌻', codigo: 7, tipo: 'producto 7', precio: 3100 },
-    { imagen: '🌿', codigo: 8, tipo: 'producto 8', precio: 1999 },
-    { imagen: '🌷', codigo: 9, tipo: 'producto 9', precio: 1700 },
-    { imagen: '🍀', codigo: 10, tipo: 'producto 10', precio: 3400 },
-    { imagen: '🌹', codigo: 11, tipo: 'producto 11', precio: 2800 },
-    { imagen: '🌼', codigo: 12, tipo: 'producto 12', precio: 2499 },
-    { imagen: '🌲', codigo: 13, tipo: 'producto 13', precio: 4500 },
-    { imagen: '🌴', codigo: 14, tipo: 'producto 14', precio: 4799 },
-    { imagen: '🍂', codigo: 15, tipo: 'producto 15', precio: 2200 },
-    { imagen: '🌳', codigo: 16, tipo: 'producto 16', precio: 1600 }
+
+    { imagen: './img/venta 1.png', id: "tropical-01", titulo: 'Producto 1', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 1500 },
+    { imagen: './img/venta 2.png', id: "suculenta-02", titulo: 'Producto 2', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 3500 },
+    { imagen: './img/venta 3.png', id: "tropical-03", titulo: 'Producto 3', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2700 },
+    { imagen: './img/venta 4.png', id: "cactus-04", titulo: 'Producto 4', categoria:{nombre: "Cactus", id: "cactus"}, precio: 1800 },
+    { imagen: './img/venta 5.png', id: "tropical-05", titulo: 'Producto 5', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2200 },
+    { imagen: './img/venta 6.png', id: "tropical-06", titulo: 'Producto 6', categoria:{nombre: "Tropicales", id: "tropical"},  precio: 2900 },
+    { imagen: './img/venta 7.png', id: "cactus-07", titulo: 'Producto 7', categoria:{nombre: "Cactus", id: "cactus"}, precio: 3100 },
+    { imagen: './img/venta 8.png', id: "cactus-08", titulo: 'Producto 8', categoria:{nombre: "Cactus", id: "cactus"}, precio: 1999 },
+    { imagen: './img/venta 9.png', id: "suculenta-09", titulo: 'Producto 9', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 1700 },
+    { imagen: './img/venta 10.png', id: "suculenta-10", titulo: 'Producto 10', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 3400 },
+    { imagen: './img/venta 11.png', id: "cactus-11", titulo: 'Producto 11', categoria:{nombre: "Cactus", id: "cactus"}, precio: 2800 },
+    { imagen: './img/venta 12.png', id: "tropical-12", titulo: 'Producto 12', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2499 },
+    { imagen: './img/venta 13.png', id: "tropical-13", titulo: 'Producto 13', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 4500 },
+    { imagen: './img/venta 14.png', id: "tropical-14", titulo: 'Producto 14', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 4799 },
+    { imagen: './img/venta 15.png', id: "cactus-15", titulo: 'Producto 15', categoria:{nombre: "Cactus", id: "cactus"}, precio: 2200 },
+    { imagen: './img/venta 16.png', id: "suculenta-16", titulo: 'Producto 16', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 1600 }
 ];
 
-const mensajeInicial = "Selecciona el codigo del producto que quieras agregar al carrito "
+const contenedorProductos = document.querySelector("#contenedor-productos");
+const botonesCategorias = document.querySelectorAll(".boton-categoria"); 
+const tituloPrincipal = document.querySelector("#titulo-principal");
+let botonesAgregar = document.querySelectorAll(".producto-agregar"); 
+const numerito = document.querySelector("#numerito")
 
-function buscarProducto(codigo) {
-    let resultado = productos.find((producto) => producto.codigo === parseInt(codigo))
-    return resultado
+function cargarProductos(productosElegidos){
+    if (contenedorProductos){
+    contenedorProductos.innerHTML = "";
+
+    productosElegidos.forEach(producto =>{
+
+        const div = document.createElement("div");
+        div.classList.add ("producto");
+        div.innerHTML = `
+        <img class "producto-img" src="${producto.imagen}" alt="${producto.titulo}">
+        <div class="informacion">
+            <h3 class= "producto-titulo">${producto.titulo}</h3>
+            <p class= "producto-precio"> ${producto.precio}</p>
+            <button class = "producto-agregar" id= "${producto.id}">AGREGAR</button>
+        </div>
+        `  
+        contenedorProductos.append (div);
+    })
+    }
+    actualizarBotonesAgregar();
 }
 
-function verCarrito(){
-    console.table(carrito)
+cargarProductos(productos);
+
+botonesCategorias.forEach(boton => {
+boton.addEventListener("click", (e) => {
+    botonesCategorias.forEach(boton => boton.classList.remove("active"));
+    e.currentTarget.classList.add("active");
+
+    if (e.currentTarget.id !== "todos") {
+        const productoCategoria = productos.find (producto =>producto.categoria.id === e.currentTarget.id );
+        tituloPrincipal.innerText = productoCategoria.categoria.nombre;
+    const productosBoton = productos.filter(producto => producto.categoria.id === e.currentTarget.id);
+    cargarProductos(productosBoton);
+    } else {
+    tituloPrincipal.innerText = "Todos los productos"
+    cargarProductos(productos);
+    }
+}) 
+});
+
+
+function actualizarBotonesAgregar() {
+    botonesAgregar = document.querySelectorAll(".producto-agregar");
+    botonesAgregar.forEach(boton => {
+    boton.addEventListener("click", agregarAlCarrito) 
+});
 }
 
-function finalizarCompra(){
-    if (carrito.length > 0 ){
-        const shopping = new Compra (carrito)
-        let resultado = confirm("¿Desea consultar cuotas sin interes?")
-    if(resultado == true) {
-    cuotas = prompt("Ingrese la cantidad de cuotas (3, 6 o 12):").trim()
-    if (cuotas !== "3" && cuotas !== "6" && cuotas !== "12") {
-        alert("❌ Cantidad de cuotas invalida, ingrese 3, 6 o 12")
-        return finalizarCompra()
-    } else {
-        const valorCuota = shopping.obtenerSubtotal() / cuotas
-        alert("El valor de cada cuota es $" + valorCuota.toFixed(2))
-        }
-    }
-    let costEnvio = 0
-    let envio = confirm("¿Desea agregar envío por $1000 🚚?")
-    if (envio == true) {
-        costEnvio = 1000
-        alert ("El total de su compra con envio 🚚 es $" + (shopping.obtenerSubtotal() + costEnvio))
-    }else{
-        alert("El total de su compra sin envio es $" + shopping.obtenerSubtotal())
-    }
-        let respuesta = confirm ("¿Queres realizar el pago?")
-        if (respuesta == true ){
-            let total = shopping.obtenerSubtotal() + costEnvio
-            alert(`El pago de $${total} fue exitoso ✅ \n ¡Muchas gracias por tu compra 🙂!`)
-            //alert (shopping.confirmarCompra)
-            carrito.length = 0
-    } else {
-        console.warn("No hay productos en el carrito.")
-    }
-  }
+const productosEnCarrito = [];
+
+function agregarAlCarrito (e) {
+    const idBoton = e.currentTarget.id;
+const productoAgregado = productos.find (producto => producto.id === idBoton);
+
+if (productosEnCarrito.some(producto => producto.id === idBoton)){
+    const index = productosEnCarrito.findIndex (producto => producto.id === idBoton);
+    productosEnCarrito[index].cantidad++;
+}else{
+    productoAgregado.cantidad = 1;
+    productosEnCarrito.push (productoAgregado);
 }
 
-function comprar(){ 
-    let codigo = prompt (mensajeInicial)
-    if (!parseInt (codigo)) {
-        alert ("❌Codigo inexistente, ingrese codigo valido.")
-        let respuesta = confirm ("¿Deseas intentar nuevamente?")
-    if (respuesta) {
-        comprar()
-        }
-        return
-    }
+actualizarNumerito ()
 
-    let productoElegido = buscarProducto(codigo)
-    if (productoElegido !== undefined){
-        alert (` El ${productoElegido.tipo} ${productoElegido.imagen} ha sido agregado al carrito.\n Precio $ ${productoElegido.precio}`)
-        carrito.push(productoElegido)
-        let respuesta = confirm("¿Deseas llevar otro producto?")
-        if (respuesta) {
-            comprar()
-        } else {
-            finalizarCompra()
-        }
-    } else {
-        alert ("❌Codigo inexistente, ingrese codigo valido.")
-        let respuesta = confirm ("¿Desea intentar denuevo?")
-        if  (respuesta) {
-            comprar ()
-        }    
-        return
-    }
+localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito))
+}
+
+function actualizarNumerito () {
+    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0 );
+    numerito.innerText = nuevoNumerito;
 }
