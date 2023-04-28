@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>plantas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="./js/main.js"></script> 
-    <script src="./js/compra.js"></script>
 </head> 
 <body>
+    <div class="wrapper">
     <header class="checkout">
         <h1 class="logo"><img src="./img/hojita.png" alt="hojita">P L A N T A S</h1>
         <nav class="nav">
             <ul>
-                <div class="carrito-bot1"><li>
+                <div class="carrito-bot1">
+                    <li>
                     <a class="boton-carrito active" href="./index.html"> <i class="bi bi-arrow-left"></i> &nbsp SEGUIR COMPRANDO</a>
-                </li>
+                    </li>
                 </div>
             </ul>
         </nav>
@@ -24,62 +25,19 @@
 <main>
     <h2 class="titulo-principal">Carrito</h2>
     <div class="contenedor-carrito "> 
-        <p id="carrito-vacio" class="carrito-vacio ">Tu carrito esta vacio  <i class="bi bi-emoji-frown"></i></p>
-
+        <p id="carrito-vacio" class="carrito-vacio">Tu carrito esta vacio  <i class="bi bi-emoji-frown"></i></p>
         <div id="carrito-productos" class="carrito-productos disabled ">
-            <div class="carrito-producto">
-                <img class="carrito-producto-imagen" src="./img/venta 1.png" alt="">
-                <div class="carrito-producto-titulo">
-                    <small>titulo</small>
-                    <h3>planta 1</h3>
-                </div>
-                <div class="carrito-producto-cantidad">
-                    <small>cantidad</small>
-                    <p>1</p>
-                </div>
-                <div class="carrito-producto-precio">
-                    <small>precio</small>
-                    <p>$1300</p>
-                </div>
-                <div class="carrito-producto-subtotal">
-                    <small>subtotal</small>
-                    <p>$1300</p>
-                </div>
-                <button class="carrito-producto-eliminar"><i class="bi bi-trash"></i></button>
-            </div>
-
-            <div class="carrito-producto">
-                <img class="carrito-producto-imagen" src="./img/venta 2.png" alt="">
-                <div class="carrito-producto-titulo">
-                    <small>titulo</small>
-                    <h3>planta 2</h3>
-                </div>
-                <div class="carrito-producto-cantidad">
-                    <small>cantidad</small>
-                    <p>1</p>
-                </div>
-                <div class="carrito-producto-precio">
-                    <small>precio</small>
-                    <p>$2000</p>
-                </div>
-                <div class="carrito-producto-subtotal">
-                    <small>subtotal</small>
-                    <p>$2000</p>
-                </div>
-                <button class="carrito-producto-eliminar"><i class="bi bi-trash"></i></button>
-            </div>
         </div>
             <div id="carrito-acciones" class="carrito-acciones disabled ">
                 <div class="carrito-acciones-izquierda">
-                    <button class="carrito-acciones-vaciar"> VACIAR CARRITO</button>
+                    <button id="carrito-acciones-vaciar" class="carrito-acciones-vaciar"> VACIAR CARRITO</button>
                 </div>
                 <div class="carrito-acciones-derecha">
                     <div class="carrito-acciones-total">
                         <p>total</p>
-                        <p id="total">&nbsp$3300</p>
+                        <p id="total">&nbsp$0</p>
                     </div>
-                    <button class="carrito-acciones-comprar">FINALIZAR COMPRA</button>
-                
+                    <button id="carrito-acciones-comprar" class="carrito-acciones-comprar">FINALIZAR COMPRA</button>
                 </div>
             </div>
             <p id="carrito-comprado" class="carrito-comprado disabled">Muchas gracias por su compra  <i class="bi bi-emoji-smile"></i></p>
@@ -88,5 +46,8 @@
 <footer>
     <p class="texto-footer">© 2023 Belen Beron </p>
 </footer>
+</div> 
+<script src="./js/compra.js"></script>
+
 </body>
 </html>     
