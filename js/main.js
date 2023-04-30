@@ -1,22 +1,11 @@
-const productos = [
+let productos = [];
 
-    { imagen: './img/venta 1.png', id: "tropical-01", titulo: 'Producto 1', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 1500 },
-    { imagen: './img/venta 2.png', id: "suculenta-02", titulo: 'Producto 2', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 3500 },
-    { imagen: './img/venta 3.png', id: "tropical-03", titulo: 'Producto 3', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2700 },
-    { imagen: './img/venta 4.png', id: "cactus-04", titulo: 'Producto 4', categoria:{nombre: "Cactus", id: "cactus"}, precio: 1800 },
-    { imagen: './img/venta 5.png', id: "tropical-05", titulo: 'Producto 5', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2200 },
-    { imagen: './img/venta 6.png', id: "tropical-06", titulo: 'Producto 6', categoria:{nombre: "Tropicales", id: "tropical"},  precio: 2900 },
-    { imagen: './img/venta 7.png', id: "cactus-07", titulo: 'Producto 7', categoria:{nombre: "Cactus", id: "cactus"}, precio: 3100 },
-    { imagen: './img/venta 8.png', id: "cactus-08", titulo: 'Producto 8', categoria:{nombre: "Cactus", id: "cactus"}, precio: 1999 },
-    { imagen: './img/venta 9.png', id: "suculenta-09", titulo: 'Producto 9', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 1700 },
-    { imagen: './img/venta 10.png', id: "suculenta-10", titulo: 'Producto 10', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 3400 },
-    { imagen: './img/venta 11.png', id: "cactus-11", titulo: 'Producto 11', categoria:{nombre: "Cactus", id: "cactus"}, precio: 2800 },
-    { imagen: './img/venta 12.png', id: "tropical-12", titulo: 'Producto 12', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 2499 },
-    { imagen: './img/venta 13.png', id: "tropical-13", titulo: 'Producto 13', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 4500 },
-    { imagen: './img/venta 14.png', id: "tropical-14", titulo: 'Producto 14', categoria:{nombre: "Tropicales", id: "tropical"}, precio: 4799 },
-    { imagen: './img/venta 15.png', id: "cactus-15", titulo: 'Producto 15', categoria:{nombre: "Cactus", id: "cactus"}, precio: 2200 },
-    { imagen: './img/venta 16.png', id: "suculenta-16", titulo: 'Producto 16', categoria:{nombre: "Suculentas", id: "suculenta"}, precio: 1600 }
-];
+fetch("./js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+    cargarProductos(productos);
+})
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria"); 
@@ -49,7 +38,8 @@ function cargarProductos(productosElegidos){
     })
     actualizarBotonesAgregar();
     }
-cargarProductos(productos);
+
+    cargarProductos(productos);
 
 botonesCategorias.forEach(boton => {
 boton.addEventListener("click", (e) => {
@@ -87,6 +77,27 @@ if(productosEnCarritoLS){
 
 
 function agregarAlCarrito (e) {
+
+    Toastify({
+        text: "Producto agregado",
+        duration: 2000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+        background: "rgba(201, 236, 242, 0.782)",
+        textTransform: "uppercase",
+        fontSize:".75rem",
+        fontFamily: "'Rubik', sans-serif"
+        },
+        offset: {
+            x: 40, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: 100 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+    
     const idBoton = e.currentTarget.id;
 const productoAgregado = productos.find(producto => producto.id === idBoton);
 
@@ -106,5 +117,4 @@ localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito))
 function actualizarNumerito () {
     let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
-
 } 

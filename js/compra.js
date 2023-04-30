@@ -35,7 +35,7 @@ function cargarProductosCarrito (){
     </div>
     <div class="carrito-producto-precio">
     <small>Precio</small>
-    <p>${producto.precio}</p>
+    <p>$${producto.precio}</p>
     </div>
     <div class="carrito-producto-subtotal">
     <small>Subtotal</small>
@@ -68,6 +68,25 @@ function actualizarBotonesEliminar() {
 }
 
 function eliminarDelCarrito(e){
+    Toastify({
+        text: "Producto eliminado",
+        duration: 2000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+        background: "rgba(201, 236, 242, 0.782)",
+        textTransform: "uppercase",
+        fontSize:".75rem",
+        fontFamily: "'Rubik', sans-serif"
+        },
+        offset: {
+            x: 30, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: 100 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
     const idBoton = e.currentTarget.id;
     const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
 
